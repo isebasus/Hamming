@@ -59,4 +59,4 @@ $ make clean
 
 * [The C Programming Language - 2nd Edition](https://drive.google.com/file/d/0BxImv9GQ06DcNjc1MTk0N2ItZmJmNC00YTM0LWFmN2UtMGQ4ZmE3Y2E1YzU4/view) - BitMatrix Inspiration
 * Sample Files provided by my professor
-* 🌐 The internet 
+* The internet of course 
