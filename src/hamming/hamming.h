@@ -1,7 +1,7 @@
 #ifndef __HAMMING_H__
 #define __HAMMING_H__
 
-#include "bm.h"
+#include "../util/bm.h"
 
 #include <stdint.h>
 

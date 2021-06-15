@@ -4,7 +4,7 @@ UTIL = ./src/util
 HAMMING = ./src/hamming
 
 SOURCEA = $(UTIL)/bm.o $(UTIL)/bv.o $(HAMMING)/hamming.o src/encode.o
-SOURCEB = $(UTIL)/bm.0 $(UTIL)/bv.o $(HAMMING)/hamming.o src/decode.o
+SOURCEB = $(UTIL)/bm.o $(UTIL)/bv.o $(HAMMING)/hamming.o src/decode.o
 
 OBJECTSA = $(SOURCEA:%.c=%.o)
 OBJECTSB = $(SOURCEB:%.c=%.o)

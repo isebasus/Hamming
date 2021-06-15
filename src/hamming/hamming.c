@@ -3,8 +3,8 @@
 
 #include "hamming.h"
 
-#include "bm.h"
-#include "bv.h"
+#include "../util/bm.h"
+#include "../util/bv.h"
 
 #include <assert.h>
 #include <stdbool.h>

@@ -1,8 +1,8 @@
 // Sebastian Carbonero
 // © 2021
 
-#include "bm.h"
-#include "hamming.h"
+#include "util/bm.h"
+#include "hamming/hamming.h"
 
 #include <inttypes.h>
 #include <stdbool.h>
