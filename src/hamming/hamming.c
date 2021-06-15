@@ -45,9 +45,9 @@ unsigned char reverse(unsigned char b) {
 // code: encoded message
 //
 static inline uint8_t dec_helper(BitMatrix *Ht, uint8_t code) {
-    BitMatrix *b_m = bm_from_data(code, 8); // Create bit matrix for encoded byte
-    BitMatrix *result = bm_multiply(Ht, b_m); // Matrix multiply
-    uint8_t r_decoded = bm_to_data(result); // Turn result matrix into a byte of nibble
+    BitMatrix *b_m = bm_from_data(code, 8);
+    BitMatrix *result = bm_multiply(Ht, b_m); 
+    uint8_t r_decoded = bm_to_data(result); 
 
     // Free memory
     bm_delete(&b_m);
@@ -61,9 +61,9 @@ static inline uint8_t dec_helper(BitMatrix *Ht, uint8_t code) {
 // code: message to decode
 //
 uint8_t encode(BitMatrix *G, uint8_t msg) {
-    BitMatrix *n_m = bm_from_data(msg, 4); // Create bit matrix size of nibble
-    BitMatrix *result = bm_multiply(G, n_m); // Matrix multiply
-    uint8_t r_encoded = bm_to_data(result); // Turn result matrix into byte
+    BitMatrix *n_m = bm_from_data(msg, 4); 
+    BitMatrix *result = bm_multiply(G, n_m); 
+    uint8_t r_encoded = bm_to_data(result);
 
     // Free memory
     bm_delete(&n_m);
@@ -76,12 +76,12 @@ HAM_STATUS decode(BitMatrix *Ht, uint8_t code, uint8_t *msg) {
     uint8_t message, decoded = dec_helper(Ht, reverse(code));
 
     switch (decode_table[decoded]) { // Check look up table
-    case (HAM_OK): *msg = (code & 0xF); return HAM_OK; // Nothing needed to be done
-    case (HAM_ERR): return HAM_ERR; // Message cannot be fixed
+    case (HAM_OK): *msg = (code & 0xF); return HAM_OK;
+    case (HAM_ERR): return HAM_ERR;
     default:
-        message = fix_message(code, 7 - decode_table[decoded]); // fixes message
+        message = fix_message(code, 7 - decode_table[decoded]);
         *msg = (message & 0xF); // Sets message
-        return HAM_CORRECT; // Return status
+        return HAM_CORRECT; 
     }
     return HAM_ERR;
 }

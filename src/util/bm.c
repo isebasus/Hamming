@@ -56,7 +56,7 @@ static inline bool in_range(BitMatrix *m, uint32_t r, uint32_t c) {
 //
 void bm_delete(BitMatrix **m) {
     if (*m && (*m)->vector) {
-        bv_delete(&(*m)->vector); // Delete bit vector
+        bv_delete(&(*m)->vector);
         free((*m)->vector);
         free(*m);
         *m = NULL;
@@ -96,7 +96,7 @@ void bm_set_bit(BitMatrix *m, uint32_t r, uint32_t c) {
 
 // Clears bit based on row and column index
 //
-// // (r * m.cols + c) is the index
+// (r * m.cols + c) is the index
 //
 // *m: reference for bit matrix
 // r: row index
@@ -129,7 +129,7 @@ uint8_t bm_get_bit(BitMatrix *m, uint32_t r, uint32_t c) {
 //
 BitMatrix *bm_from_data(uint8_t byte, uint32_t length) {
     if (length <= 8) {
-        BitMatrix *bm = bm_create(length, 1); // Create matrix
+        BitMatrix *bm = bm_create(length, 1);
         for (uint32_t i = 0; i < length; i++) {
             uint8_t b = (byte >> i) & 1; // Gets ith bit
             if (b == 1) { // if bit is 1, set bit
@@ -166,14 +166,14 @@ BitMatrix *bm_multiply(BitMatrix *A, BitMatrix *B) {
         BitMatrix *r = bm_create(A->rows, B->cols);
         for (uint32_t i = 0; i < A->rows; i++) {
             for (uint32_t j = 0; j < B->cols; j++) {
-                uint32_t s = 0; // Sum of product
+                uint32_t s = 0;
                 // Follows rule of C(i,k) = A(j,k) * B(k, j)
                 for (uint32_t k = 0; k < A->cols; k++) {
                     // Add to sum of matrix multiplication
                     s += (bm_get_bit(A, i, k) * bm_get_bit(B, k, j));
                 }
                 if ((s % 2) == 1) {
-                    bm_set_bit(r, i, j); // Set bit
+                    bm_set_bit(r, i, j); 
                 }
             }
         }
@@ -189,7 +189,6 @@ BitMatrix *bm_multiply(BitMatrix *A, BitMatrix *B) {
 void bm_print(BitMatrix *m) {
     for (uint32_t i = 0; i < m->cols; i++) {
         for (uint32_t j = 0; j < m->rows; j++) {
-            // print out bit
             printf("%d", bm_get_bit(m, j, i));
         }
         printf("\n");

@@ -35,10 +35,10 @@ struct BitVector {
 //
 BitVector *bv_create(uint32_t length) {
     BitVector *v = (BitVector *) malloc(sizeof(BitVector));
-    assert(v); // Checks for malloc failure
+    assert(v);
     v->length = length;
     v->vector = (uint8_t *) calloc(byte_length(length), sizeof(uint8_t));
-    assert(v->vector); // Checks for calloc failure
+    assert(v->vector);
     return v;
 }
 
@@ -48,8 +48,8 @@ BitVector *bv_create(uint32_t length) {
 //
 void bv_delete(BitVector **v) {
     if (*v && (*v)->vector) {
-        free((*v)->vector); // free array
-        free(*v); // free bit vector
+        free((*v)->vector);
+        free(*v);
         *v = NULL;
     }
     return;
