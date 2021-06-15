@@ -1,48 +1,33 @@
 EXECA = encode
 EXECB = decode
-EXECC = entropy
-EXECD = error
+UTIL = ./src/util
+HAMMING = ./src/hamming
 
-SOURCES_A = encode.c hamming.c bm.c bv.c
-OBJECTS_A = $(SOURCES_A:%.c=%.o)
+SOURCEA = $(UTIL)/bm.o $(UTIL)/bv.o $(HAMMING)/hamming.o src/encode.o
+SOURCEB = $(UTIL)/bm.0 $(UTIL)/bv.o $(HAMMING)/hamming.o src/decode.o
 
-SOURCES_B = decode.c hamming.c bm.c bv.c
-OBJECTS_B = $(SOURCES_B:%.c=%.o)
-
-SOURCES_C = entropy.c 
-OBJECTS_C = $(SOURCES_C:%.c=%.o)
-
-SOURCES_D = error.c
-OBJECTS_D = $(SOURCES_D:%.c=%.o)
+OBJECTSA = $(SOURCEA:%.c=%.o)
+OBJECTSB = $(SOURCEB:%.c=%.o)
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -Wpedantic
 LFLAGS = -lm
 
-.PHONY: all clean format
+.PHONY: all clean
 
-all: $(EXECA) $(EXECB) $(EXECC) $(EXECD) 
+all: $(EXECA) $(EXECB)
 
-$(EXECA): $(OBJECTS_A)
-	$(CC) -o $@ $^ $(LFLAGS)
+$(EXECA): $(OBJECTSA)
+	$(CC) $(CFLAGS) $(SOURCEA) -o $(EXECA)
 
-$(EXECB): $(OBJECTS_B)
-	$(CC) -o $@ $^ $(LFLAGS)
-
-$(EXECC): $(OBJECTS_C)
-	$(CC) -o $@ $^ $(LFLAGS)
-
-$(EXECD): $(OBJECTS_D)
-	$(CC) -o $@ $^ $(LFLAGS)
+$(EXECB): $(OBJECTSB)
+	$(CC) $(CFLAGS) $(SOURCEB) -o $(EXECB)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
-
-format:
-	clang-format -i -style=file *.[ch]
+	$(CC) $(CFLAGS) -c -o $@ $< $(CFLAGS)
 
 clean:
-	rm -rf $(EXECA) $(EXECB) $(EXECC) $(EXECD) $(OBJECTS_A) $(OBJECTS_B) $(OBJECTS_C) $(OBJECTS_D) 
+	rm -rf $(EXECA) $(EXECB) $(OBJECTSA) $(OBJECTSB) 
 
 scan-build: clean
 	scan-build make 
